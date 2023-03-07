@@ -54,7 +54,7 @@ jobs:
         tenant-id: ${{ secrets.AZURE_TENANT_ID }}
         subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
     - uses: azure/arm-deploy@v1
-      name: Deploy website
+      name: Run what-if
       with:
         failOnStdErr: false
         deploymentName: ${{ github.run_number }}
@@ -97,7 +97,7 @@ jobs:
           -Path 'deploy/Website.Tests.ps1' `
           -Data @{ HostName = '${{needs.deploy.outputs.appServiceAppHostName}}' }
         Invoke-Pester `
-          -Container $continer `
+          -Container $container `
           -CI
       name: Run smoke tests
       shell: pwsh
